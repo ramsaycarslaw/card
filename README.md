@@ -22,7 +22,7 @@ Blank versions of the checklists can be found in the files `reading_list.md` and
 - [ ] _Boolean Logic_, M&C, chapter 2
 - [ ] _Logic Minimisation_, M&C Chapter 3
 - [ ] _ISA_, H&P, appendix A
-- [ ] _Pipelined Processor Design_, H&P, section C-1
+- [ * ] _Pipelined Processor Design_, H&P, section C-1
 - [ ] _Pipeline Hazards_, H&P, section C-2
 - [ ] _Latches and FLip Flops_, M&C sections 5.1 to 5.4
 - [ ] _Sequential Logic_, M&C sections 5.5 to 5.8
@@ -154,7 +154,6 @@ Blank versions of the checklists can be found in the files `reading_list.md` and
 
 ## Classic Five-Stage Pipeline for a RISC Processor
 
-|--------------------|-----------------------------------|
 | Instruction Number | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
 |--------------------|---|---|---|---|---|---|---|---|---|
 | instruction i      |IF | ID| EX|MEM| WB|   |   |   |   |
@@ -162,7 +161,6 @@ Blank versions of the checklists can be found in the files `reading_list.md` and
 | instruction i+2    |   |   | IF|ID | EX|MEM|WB |   |   |
 | instruction i+3    |   |   |   |IF | ID| EX|MEM|WB |   |
 | instruction i+4    |   |   |   |   | IF| ID|EX |MEM|WB |
-|--------------------|---|---|---|---|---|---|---|---|---|
 
 ## Pipelined Processor Design
 
@@ -197,3 +195,32 @@ the two.
 
 The advantage to pipeling is it cannot be seen by the programmer unlike some
 other speedups. 
+
+### Example
+
+> Example: Consider the unpipelined processor in the previous section. Assume
+> that it has a 1 ns clock cycle and that it uses 4 cycles for ALU operations
+> and branches and 5 cycles for memory operations. Assume that the relative
+> frequencies of these operations are 40%, 20%, and 40%, respectively. Suppose
+> that due to clock skew and setup, pipelining the processor adds 0.2 ns of
+> overhead to the clock. Ignoring any latency impact, how much speedup in the
+> instruction execution rate will we gain from a pipeline?
+
+In the unpipelined implmentation we have the avergae instruction execution time of
+
+```math
+\text{Average Instruction Execution Time} = \text{Clock Cycle} \times \text{Average CPI}
+```
+
+```math
+= 1ns \times \[ 40\% + 20\% \] \times 4 + 40\% \times 5 = 4.4ns
+```
+In the pipelined processor we have the slowest stage which is $1ns$ plus the pipelinis overhead $0.2$ which results in
+
+```math
+\frac{\text{Time per instruction on unpiplined machine}}{\text{Number of pipe stages}}
+```
+
+```math
+\frac{4.4}{1.2} = 3.7 \text{ times faster}
+```
