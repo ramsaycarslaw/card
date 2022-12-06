@@ -3,6 +3,7 @@
 - [Introduction](#introduction)
 - [Reading Checklist](#reading-checklist)
 - [Past Papers](#past-papers-(44-total))
+- [Basic RISC-V Instruction Set](#basic-risc-v-instruction-set)
 - [Piplened Processor Design](#pipelined-processor-design)
 
 ## Introduction
@@ -92,6 +93,29 @@ Blank versions of the checklists can be found in the files `reading_list.md` and
 - [ ] 2017/2018
 - [ ] 2018/2019
 
+## Basic RISC-V instruction set
+
+1. _Instruction Fetch Cycle_ (`IF`) -- Send the program counter (PC) to memory
+   and fetch the current instruction from memory. Update the pc to the next
+   sequential PC by adding 4 (becuase each instruction is 4 bytes) to the PC.
+
+2. _Instruction decode/register fetch cycle_ (`ID`) -- Decode the instruction
+   and read the registers corresponding to register source specifiers from the
+   register file. As the registers are read, do the equality test to check for 
+   a possible branch. If it is needed, sign extend the offset field of the
+   instruction. In an agressive implmentation, we can complete the branch at this
+   stage by storing the branch target address in the PC if the condition was
+   true.  This technique is known as fixed field decoding. In this
+   implementation we may read a register we aren't using which won't hurt
+   performance but does have an energy impact.
+
+3. _Execution/effective address cycle_ (`EX`)
+
+4. _Memory Access_ (`MEM`)
+
+5. _Write-back cycle_ (`WB`)
+
+
 ## Pipelined Processor Design
 
 _Pipelining_ is an implementation technique whereby multiple instructions are
@@ -116,3 +140,12 @@ Under these conditions the speedup would be $n$ where $n$ is the number of pipe
 stages. However, the stages are not usually perfectly balanced. Therefore, the
 time per instruction on the pipelined processor will not have it's minimum
 possible value, yet it can be close.
+
+Pipeling can either be viewed as reducing the number of clock cycles per
+instruction, if the processor usually takes multiple cycles per instruction. If
+the processor typically takes 1 cycle per instruction then it can be seen as
+reducing the time per cycle. Alternatively, it can be seen as a combination of
+the two.
+
+The advantage to pipeling is it cannot be seen by the programmer unlike some
+other speedups. 
