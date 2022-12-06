@@ -95,25 +95,59 @@ Blank versions of the checklists can be found in the files `reading_list.md` and
 
 ## Basic RISC-V instruction set
 
-1. _Instruction Fetch Cycle_ (`IF`) -- Send the program counter (PC) to memory
-   and fetch the current instruction from memory. Update the pc to the next
-   sequential PC by adding 4 (becuase each instruction is 4 bytes) to the PC.
+1. _Instruction Fetch Cycle_ (`IF`) 
+    Send the program counter (PC) to memory and fetch the current instruction
+    from memory. Update the pc to the next sequential PC by adding 4 (becuase
+    each instruction is 4 bytes) to the PC.
 
-2. _Instruction decode/register fetch cycle_ (`ID`) -- Decode the instruction
-   and read the registers corresponding to register source specifiers from the
-   register file. As the registers are read, do the equality test to check for 
-   a possible branch. If it is needed, sign extend the offset field of the
-   instruction. In an agressive implmentation, we can complete the branch at this
-   stage by storing the branch target address in the PC if the condition was
-   true.  This technique is known as fixed field decoding. In this
-   implementation we may read a register we aren't using which won't hurt
-   performance but does have an energy impact.
+2. _Instruction decode/register fetch cycle_ (`ID`) 
+    Decode the instruction and read the registers corresponding to register
+    source specifiers from the register file. As the registers are read, do the
+    equality test to check for a possible branch. If it is needed, sign extend
+    the offset field of the instruction. In an agressive implmentation, we can
+    complete the branch at this stage by storing the branch target address in
+    the PC if the condition was true.  This technique is known as fixed field
+    decoding. In this implementation we may read a register we aren't using
+    which won't hurt performance but does have an energy impact.
 
 3. _Execution/effective address cycle_ (`EX`)
+  The ALU operates on the operands prepared in the prior cycle, performing one
+  of three functions depending on  the operand type
+
+  - Memory reference - The ALU adds the base register and the offset to form
+    the effective address
+
+    ```c
+    ...
+    return 0;
+    ```
+
+  - Register-Register - The ALU performs the operation specified by the ALU
+    opcode on the values read from the register file. 
+
+    ```c
+    int x = y + z;
+    ```
+
+  - Register-Immediate - The ALU performs the operation specified by the ALU
+    opcode on the register from the register file (the first value) and the
+    sign extended immediate value. 
+
+    ```c
+    int x = 10;
+    ```
 
 4. _Memory Access_ (`MEM`)
+  There are two cases in the `MEM` stage
+
+  - The instruction is load, the memory does a read using the effective address
+    computed in the previous cycle.
+
+  - The instruction is store, the memory writes the data from the second
+    register from the register file to the effective address 
 
 5. _Write-back cycle_ (`WB`)
+  Register-Register ALU instruction or load instruction: Write the result to the register file whether it comes from memory (load) or the ALU.
 
 
 ## Pipelined Processor Design
