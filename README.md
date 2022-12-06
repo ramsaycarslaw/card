@@ -156,13 +156,13 @@ Blank versions of the checklists can be found in the files `reading_list.md` and
 
 |--------------------|-----------------------------------|
 | Instruction Number | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
-+--------------------+---+---+---+---+---+---+---+---+---+
+|--------------------|---|---|---|---|---|---|---|---|---|
 | instruction i      |IF | ID| EX|MEM| WB|   |   |   |   |
 | instruction i+1    |   | IF| ID|EX |MEM|WB |   |   |   |
 | instruction i+2    |   |   | IF|ID | EX|MEM|WB |   |   |
 | instruction i+3    |   |   |   |IF | ID| EX|MEM|WB |   |
 | instruction i+4    |   |   |   |   | IF| ID|EX |MEM|WB |
-+--------------------+---+---+---+---+---+---+---+---+---+
+|--------------------|---|---|---|---|---|---|---|---|---|
 
 ## Pipelined Processor Design
 
