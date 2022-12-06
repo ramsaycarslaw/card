@@ -22,7 +22,7 @@ Blank versions of the checklists can be found in the files `reading_list.md` and
 - [ ] _Boolean Logic_, M&C, chapter 2
 - [ ] _Logic Minimisation_, M&C Chapter 3
 - [ ] _ISA_, H&P, appendix A
-- [ * ] _Pipelined Processor Design_, H&P, section C-1
+- [*] _Pipelined Processor Design_, H&P, section C-1
 - [ ] _Pipeline Hazards_, H&P, section C-2
 - [ ] _Latches and FLip Flops_, M&C sections 5.1 to 5.4
 - [ ] _Sequential Logic_, M&C sections 5.5 to 5.8
