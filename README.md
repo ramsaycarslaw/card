@@ -213,7 +213,7 @@ In the unpipelined implmentation we have the avergae instruction execution time 
 ```
 
 ```math
-= 1ns \times \[ 40\% + 20\% \] \times 4 + 40\% \times 5 = 4.4ns
+= 1ns \times ( 40\% + 20\% ) \times 4 + 40\% \times 5 = 4.4ns
 ```
 In the pipelined processor we have the slowest stage which is $1ns$ plus the pipelinis overhead $0.2$ which results in
 
