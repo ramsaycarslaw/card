@@ -99,9 +99,9 @@ Thus we aim to balance the length of each pipeline stage. If the stages are
 perfectly balanced then the time per instruction on the pipelined machine
 (_assuming ideal conditions_) is given by
 
-$$
+```math
 \frac{\text{Time per instruction on unpiplined machine}}{\text{Number of pipe stages}}
-$$
+```
 
 Under these conditions the speedup would be $n$ where $n$ is the number of pipe
 stages. However, the stages are not usually perfectly balanced. Therefore, the
