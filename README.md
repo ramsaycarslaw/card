@@ -4,6 +4,7 @@
 - [Reading Checklist](#reading-checklist)
 - [Past Papers](#past-papers-(44-total))
 - [Basic RISC-V Instruction Set](#basic-risc-v-instruction-set)
+- [Classic-RISC-V-Piplined-design](#classic-five-stage-pipeline-for-a-risc-processor)
 - [Piplened Processor Design](#pipelined-processor-design)
 
 ## Introduction
@@ -147,8 +148,23 @@ Blank versions of the checklists can be found in the files `reading_list.md` and
     register from the register file to the effective address 
 
 5. _Write-back cycle_ (`WB`)
-  Register-Register ALU instruction or load instruction: Write the result to the register file whether it comes from memory (load) or the ALU.
+  Register-Register ALU instruction or load instruction: Write the result to
+  the register file whether it comes from memory (load) or the ALU.
 
+
+## Classic Five-Stage Pipeline for a RISC Processor
+
+|--------------------------------------------------------|
+|                       Clock number                     |
+|                    |-----------------------------------|
+| Instruction Number | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
++--------------------+---+---+---+---+---+---+---+---+---+
+| instruction i      |IF | ID| EX|MEM| WB|   |   |   |   |
+| instruction i+1    |   | IF| ID|EX |MEM|WB |   |   |   |
+| instruction i+2    |   |   | IF|ID | EX|MEM|WB |   |   |
+| instruction i+3    |   |   |   |IF | ID| EX|MEM|WB |   |
+| instruction i+4    |   |   |   |   | IF| ID|EX |MEM|WB |
++--------------------+---+---+---+---+---+---+---+---+---+
 
 ## Pipelined Processor Design
 
