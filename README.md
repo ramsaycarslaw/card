@@ -1,8 +1,8 @@
 # Computer Architechture and Design Revision Resources
 
-- [Reading Checklist](#Reading Checklist)
-- [Past Papers](#Past Papers (44 total))
-- [Piplened Processor Design](#Pipelined Processor Design)
+- [Reading Checklist](#reading-checklist)
+- [Past Papers](#past-papers-(44-total))
+- [Piplened Processor Design](#pipelined-processor-design)
 
 ## Reading Checklist (21 total)
 
