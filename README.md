@@ -154,9 +154,7 @@ Blank versions of the checklists can be found in the files `reading_list.md` and
 
 ## Classic Five-Stage Pipeline for a RISC Processor
 
-|--------------------------------------------------------|
-|                       Clock number                     |
-|                    |-----------------------------------|
+|--------------------|-----------------------------------|
 | Instruction Number | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
 +--------------------+---+---+---+---+---+---+---+---+---+
 | instruction i      |IF | ID| EX|MEM| WB|   |   |   |   |
