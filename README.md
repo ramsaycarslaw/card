@@ -85,5 +85,25 @@
 
 ## Pipelined Processor Design
 
+_Pipelining_ is an implementation technique whereby multiple instructions are
+overlapped in execution; it takes advantage of parallelism that exists among
+the actions needed to execute an instruction. Today, pipelining is the key
+implementation technique used to make fast CPUs.
 
+All stages need to proceed at the same time, for this reason the length of a
+processor cycle is determined by the time required for the slowest pipe stage.
+In a computer, this processor cycle is typically 1 clock cycle (sometimes 2 but
+_rarely_ more).
 
+Thus we aim to balance the length of each pipeline stage. If the stages are
+perfectly balanced then the time per instruction on the pipelined machine
+(_assuming ideal conditions_) is given by
+
+$$
+\frac{\text{Time per instruction on unpiplined machine}}{\text{Number of pipe stages}}
+$$
+
+Under these conditions the speedup would be $n$ where $n$ is the number of pipe
+stages. However, the stages are not usually perfectly balanced. Therefore, the
+time per instruction on the pipelined processor will not have it's minimum
+possible value, yet it can be close.
