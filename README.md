@@ -1,8 +1,17 @@
 # Computer Architechture and Design Revision Resources
 
+- [Introduction](#introduction)
 - [Reading Checklist](#reading-checklist)
 - [Past Papers](#past-papers-(44-total))
 - [Piplened Processor Design](#pipelined-processor-design)
+
+## Introduction
+
+This repo contains all of the readings, past papers and some notes for Computer
+Architecture and Design at the University of Edinburgh. Feel free to clone this
+repo to track your own revision or make a pull request if something is missing.
+Blank versions of the checklists can be found in the files `reading_list.md` and 
+`paper_list.md`.
 
 ## Reading Checklist (21 total)
 
