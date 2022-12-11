@@ -1,11 +1,12 @@
 # Computer Architechture and Design Revision Resources
 
-- [Introduction](#introduction)
-- [Reading Checklist](#reading-checklist)
-- [Past Papers](#past-papers-(44-total))
-- [Basic RISC-V Instruction Set](#basic-risc-v-instruction-set)
-- [Classic-RISC-V-Piplined-design](#classic-five-stage-pipeline-for-a-risc-processor)
-- [Piplened Processor Design](#pipelined-processor-design)
++ [Introduction](#introduction)
++ [Reading Checklist](#reading-checklist)
++ [Past Papers](#past-papers-(44-total))
++ [Basic RISC-V Instruction Set](#basic-risc-v-instruction-set)
++ [Classic-RISC-V-Piplined-design](#classic-five-stage-pipeline-for-a-risc-processor)
++ [Piplened Processor Design](#pipelined-processor-design)
++ [Pipeline Hazards](#pipeline-hazards)
 
 ## Introduction
 
@@ -224,3 +225,22 @@ In the pipelined processor we have the slowest stage which is $1ns$ plus the pip
 ```math
 \frac{4.4}{1.2} = 3.7 \text{ times faster}
 ```
+
+## Pipeline Hazards
+
+The reason that pipelining cannot operate at it's fastest are situations,
+called hazards. Hazards reduce the performance from the ideal speedup gained by
+pipelining. There are three classes of hazards. 
+
++ _Structural Hazards_ happens when the hardware cannot support every case of
+   the current instructions.
+
++ _Data Hazards_ arise when an instruction in the pipeline depends on the
+  results of a previous instruction that is exposed by the overlapping of
+  instructions in the pipeline.
+
++ _Control Hazards_ arise from the pipeling of instructions that modify the PC
+
+Hazards make it necessary to stall the pipeline and wait for the execution of
+the instruction
+
