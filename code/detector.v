@@ -6,6 +6,18 @@ module detector (
     output hit
 );
 
-assign hit = (sig == 5'b11111);
+wire [4:0] buf = 5'b00000;
 
+always @(posedge clk or posedge reset) begin
+  if (reset) begin
+    buf <= 5'b00000;
+  end
+  
+  buf <= { buf[3:0], din };
+    
+  if (buf == sig) begin
+    hit <= 1
+  end
+end
+ 
 endmodule
