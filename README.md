@@ -8,6 +8,7 @@
 + [Piplened Processor Design](#pipelined-processor-design)
 + [Pipeline Hazards](#pipeline-hazards)
 + [Booth Coding](#booth-coding)
++ [Tomasulo's Algorithm](#tomasulo's-algorithm)
 
 ## Introduction
 
@@ -25,7 +26,7 @@ Blank versions of the checklists can be found in the files `reading_list.md` and
 - [ ] _Logic Minimisation_, M&C Chapter 3
 - [ ] _ISA_, H&P, appendix A
 - [x] _Pipelined Processor Design_, H&P, section C-1
-- [ ] _Pipeline Hazards_, H&P, section C-2
+- [x] _Pipeline Hazards_, H&P, section C-2
 - [ ] _Latches and FLip Flops_, M&C sections 5.1 to 5.4
 - [ ] _Sequential Logic_, M&C sections 5.5 to 5.8
 - [ ] _Sequential Logic_, M&C sections 8.4 to 8.6
@@ -35,7 +36,7 @@ Blank versions of the checklists can be found in the files `reading_list.md` and
 - [ ] _Dynamic Instruction Scheduling_, H&P, section 3.4 to 3.6
 - [ ] _Tomasulo's Algorithm_, H&P, pp. 195 to 208, and section 3.9
 - [ ] _High Speed Addition_, M&C, section 4.5; H&P-online J-37 to J-41
-- [ ] _Multipliers_,  H&P-online, sections J-50 to J-54
+- [x] _Multipliers_,  H&P-online, sections J-50 to J-54
 - [ ] _Memory Heirarchies_,  Introductory : H&P appendix B 
 - [ ] _Cache Performance Enhancements_,  Advanced : H&P chapter 2 
 - [ ] _Advanced Arithmetic Functions_, H&P-online, sections J-17 to J-20
@@ -272,3 +273,84 @@ cases ignore overflow.
   ------------
     0000001100  = 12
 ```
+
+## Tomasulo's Algorithm
+
+Tomasulo's Algorithm is a hardware algorithm for the dynamic
+scheduling of instructions that allows for out of order execution and
+enables more efficient use of multiple execution units. The major
+innovation was register renaming in hardware and reservation stations
+for all functional units.
+
+### Register Renaming
+
+Tomasulo's algorithm performs _out of order execution_ through
+register renaming.  All reservation stations hold either a real value
+or a placeholder value.  If a real value if unavailable during the
+issue stage then a placeholder value is used. The placeholder value is
+the reservation station that will produce the correct value.  When the
+function unit is finished execution, everywhere that references the
+reservation station for that value will be replaced with the real
+value.
+
+### Example (blank)
+
+```asm
+flw f6
+flw f2
+fmul f0  f2 f4
+fsub f8  f6 f2
+fdiv f10 f0 f6
+fadd f6  f8 f2
+```
+> The program
+
+|-------------|----|----|-------|------|-------|
+| Instruction | j  | k  | Issue | Done | Write |
+|-------------|----|----|-------|------|-------|
+| flw F6      | 34 | x2 | 1     |      |       |
+| flw f2      | 45 | x3 |       |      |       |
+| fmul f0     | f2 | f4 |       |      |       |
+| fsub f8     | f6 | f2 |       |      |       |
+| fdiv  f10   | f0 | f6 |       |      |       |
+| fadd f6     | f8 | f2 |       |      |       |
+|-------------|----|----|-------|------|-------|
+> The table of instructions 
+
+|------|-------|------|----|----|----|----|----|
+| Time | Name  | Busy | Op | Vj | Vk | Qj | Qk |
+|------|-------|------|----|----|----|----|----|
+|      | Add1  | No   |    |    |    |    |    |
+|      | Add2  | No   |    |    |    |    |    |
+|      | Add3  | No   |    |    |    |    |    |
+|------|-------|------|----|----|----|----|----|
+|      | Mult1 | No   |    |    |    |    |    |
+|      | Mult2 | No   |    |    |    |    |    |
+|------|-------|------|----|----|----|----|----|
+> Reservation stations (operations)
+
+|-------|------|---------|
+| Entry | Busy | Address |
+|-------|------|---------|
+| Load1 | Yes  | 34+X2   |
+| Load2 | No   |         |
+| Load# | No   |         |
+|-------|------|---------|
+> Reservation stations (load)
+
+|--------------|----|----|----|-------|----|-----|-----|-----|-----|
+|              | F0 | F2 | F4 | F6    | F8 | F10 | F12 | ... | F31 |
+|--------------|----|----|----|-------|----|-----|-----|-----|-----|
+| Producing RS |    |    |    | Load1 |    |     |     | ... |     |
+|--------------|----|----|----|-------|----|-----|-----|-----|-----|
+> Result
+
+### Example (Described)
+
+1. Issue FLW to the reservation station Load1, hence F6 producer set to Load1
+2. Issue second FLW to the reservation station Load2, F2 producer set to Load2
+3. Issue fmul to mult1, Vk set to F4 (no dependency), Qj set to Load2 (RAW on F2)
+   - fmul cannot start until Qj is resolved
+   - F0 producer set to Mult1
+4. FLW #1 is done so everywhere that depends on Load1 can be set to the value on the next clock
+5. etc...
