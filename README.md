@@ -244,3 +244,30 @@ pipelining. There are three classes of hazards.
 Hazards make it necessary to stall the pipeline and wait for the execution of
 the instruction
 
+## Booth Coding
+
+Booth coding involves translating multiplications into powers of 2 to
+reduce the number of operations required to complete it. There are
+three cases. Start at $P_0$ where $P$ is the multiplier. Move one
+position to the left and check the condition as listed below. In all
+cases ignore overflow.
+
+1. `01` add the multiplicand
+2. `10` subtract the multiplicand
+3. `00` or `11`, do nothing
+
+
+
+> Example: 6*2:
+
+```
+	    001100  = 6
+     x  000010  = 2
+	 
+	    000000  <- zero followed by zero, do nothing
+	 - 000010   <- zero into one, subtract multiplicand
+	 000000     <- one followed by one, do nothing
+  + 000010      <- one into zero, add multiplicand
+  ------------
+    0000001100  = 12
+```
