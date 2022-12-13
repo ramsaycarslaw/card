@@ -7,6 +7,7 @@
 + [Classic-RISC-V-Piplined-design](#classic-five-stage-pipeline-for-a-risc-processor)
 + [Piplened Processor Design](#pipelined-processor-design)
 + [Pipeline Hazards](#pipeline-hazards)
++ [Booth Coding](#booth-coding)
 
 ## Introduction
 
